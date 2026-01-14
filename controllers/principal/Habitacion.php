@@ -1,0 +1,14 @@
+<?php
+class Habitacion extends Controller{
+    public function __construct() {
+        parent::__construct();
+    }
+    public function index(){
+        $data['title'] = 'Habitaciones';
+        $data['subtitle'] = 'Habitaciones con estilo';
+        $this->views->getViews('principal/habitacion/index',$data);
+    }
+
+}
+?>
+
