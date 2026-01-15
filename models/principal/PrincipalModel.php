@@ -5,12 +5,13 @@ class principalModel extends Query{
         parent::__construct();
 
     }
+    /* TODO: Recuperar los slider */
     public function getSliders(){
-        return $this->selectAll("SELECT * FROM sliders WHERE estado = 1");
+        return $this->selectAll("SELECT * FROM sliders ");
     }
-
+    /* TODO: Recuperar las habitaciones */
     public function getHabitaciones(){
-        return $this->selectAll("SELECT * FROM habitaciones");
+        return $this->selectAll("SELECT * FROM habitaciones WHERE estado = 1");
     }
 
 
