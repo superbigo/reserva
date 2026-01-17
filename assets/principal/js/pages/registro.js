@@ -20,12 +20,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 http.send(new FormData(frm));
                 http.onreadystatechange = function () {
                     if (this.readyState == 4 && this.status == 200) {
-                        console.log(this.responseText);
                         const resp = JSON.parse(this.responseText);
                         alertaSW(resp.msg, resp.tipo);
                         if (resp.tipo == 'success') {
                             frm.reset();
                             /*TODO: Mandar a otra ruta*/
+                            window.location = base_url + 'dashboard';
                         }
                     }
                 };

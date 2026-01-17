@@ -1,13 +1,12 @@
 <?php
 class Reserva extends Controller
 {
-    public function __construct()
-    {
+    public function __construct(){
         parent::__construct();
+        session_start();
     }
 
-    public function verify()
-    {
+    public function verify(){
         if (isset($_GET['f_llegada']) && isset($_GET['f_salida']) && isset($_GET['habitacion'])) {
             $f_llegada  = strClean($_GET['f_llegada']);
             $f_salida  = strClean($_GET['f_salida']);
@@ -61,5 +60,9 @@ class Reserva extends Controller
             echo json_encode($result, JSON_UNESCAPED_UNICODE);
         }
         die();
+    }
+    public function pendiente(){
+        $data['title'] = 'Reserva pendiente';
+        $this->views->getViews('principal/clientes/reservas/pendiente',$data);
     }
 }

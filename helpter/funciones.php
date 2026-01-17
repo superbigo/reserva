@@ -1,6 +1,7 @@
 <?php
 /* TODO: Limpiar caracteres especiales - para prevenor inyección SQL*/
-function strClean($cadena){
+function strClean($cadena)
+{
   $string = preg_replace(['/\s+/', '/^\s|\s$/'], [' ', ''], $cadena);
   $string = trim($string);
   $string = stripslashes($string);
@@ -30,7 +31,8 @@ function strClean($cadena){
   return $string;
 }
 /* TODO: Crear slug */
-function slugify($text, string $divider = '-'){
+function slugify($text, string $divider = '-')
+{
   // replace non letter or digits by divider
   $text = preg_replace('~[^\pL\d]+~u', $divider, $text);
 
@@ -56,7 +58,8 @@ function slugify($text, string $divider = '-'){
   return $text;
 }
 /* TODO: Limitar una cadena */
-function limitar_cadena($cadena, $limite, $sufijo){
+function limitar_cadena($cadena, $limite, $sufijo)
+{
   // Si la longitud es mayor que el límite...
   if (strlen($cadena) > $limite) {
     // Entonces corta la cadena y ponle el sufijo
@@ -67,13 +70,15 @@ function limitar_cadena($cadena, $limite, $sufijo){
   return $cadena;
 }
 /* TODO: Personalizar la fecha */
-function fechaPerzo($fecha){
+function fechaPerzo($fecha)
+{
   $datos = explode('-', $fecha);
   $anio = $datos[0];
   $me = ltrim($datos[1], "0");
   $dia = $datos[2];
   $mes = array(
-    "", "Enero",
+    "",
+    "Enero",
     "Febrero",
     "Marzo",
     "Abril",
@@ -89,7 +94,8 @@ function fechaPerzo($fecha){
   return $dia . " de " . $mes[$me] . " de " . $anio;
 }
 /* TODO: Validar campos */
-function validarCampos($campos){
+function validarCampos($campos)
+{
   foreach ($campos as $campo) {
     if (empty($_POST[$campo])) {
       return false;
@@ -97,8 +103,25 @@ function validarCampos($campos){
   }
   return true;
 }
+
+/* TODO: Crear sesiones */
+function crearSession($datos)
+{
+  $_SESSION['id_usuario'] = $datos['id_usuario'];
+  $_SESSION['usuario'] = $datos['usuario'];
+  $_SESSION['correo_usuario'] = $datos['correo'];
+  $_SESSION['nombre_usuario'] = $datos['nombre'];
+  $_SESSION['rol'] = $datos['rol'];
+}
+
+/* TODO: Redirect */
+function reditect($ruta){
+  header('location:' . $ruta);
+}
+
 /* TODO: Agregar productos al carrito */
-function addToCart($carrito, $id, $nombre, $precio, $token, $cant = 1){
+function addToCart($carrito, $id, $nombre, $precio, $token, $cant = 1)
+{
   if (!isset($_SESSION[$carrito])) {
     $_SESSION[$carrito] = [];
   }
@@ -139,7 +162,8 @@ function addToCart($carrito, $id, $nombre, $precio, $token, $cant = 1){
   return $response;
 }
 /* TODO: Eliminar productos al carrito */
-function removeFromCart($carrito, $id, $token){
+function removeFromCart($carrito, $id, $token)
+{
   if (!isset($_SESSION[$carrito])) {
     $_SESSION[$carrito] = [];
   }
@@ -170,7 +194,8 @@ function removeFromCart($carrito, $id, $token){
   return $response;
 }
 /* TODO: Vaciar productos del carrito */
-function clearCart($carrito){
+function clearCart($carrito)
+{
   unset($_SESSION[$carrito]); // Eliminar el carrito de la sesión
 
   // Preparar una respuesta JSON
@@ -182,7 +207,8 @@ function clearCart($carrito){
   return $response;
 }
 /* TODO: Eliminar productos al carrito */
-function getTotalPrice($carrito){
+function getTotalPrice($carrito)
+{
   if (!isset($_SESSION[$carrito])) {
     return 0; // Devolver 0 si el carrito no existe en la sesión
   }
@@ -199,7 +225,8 @@ function getTotalPrice($carrito){
   return $totalPrice;
 }
 /* TODO: Cantidad editable en el carrito */
-function updateCantidad($carrito, $id, $cantidad, $token){
+function updateCantidad($carrito, $id, $cantidad, $token)
+{
   if (!isset($_SESSION[$carrito])) {
     // Manejar el caso en que el carrito no exista
     $response = [
@@ -228,7 +255,8 @@ function updateCantidad($carrito, $id, $cantidad, $token){
   return $response;
 }
 /* TODO: Precio editable en el carrito */
-function updatePrice($carrito, $id, $new_price, $token){
+function updatePrice($carrito, $id, $new_price, $token)
+{
   if (!isset($_SESSION[$carrito])) {
     // Manejar el caso en que el carrito no exista
     $response = [
@@ -257,7 +285,8 @@ function updatePrice($carrito, $id, $new_price, $token){
   return $response;
 }
 /* TODO: Generar Serie */
-function generate_numbers($start, $count, $digits){
+function generate_numbers($start, $count, $digits)
+{
   $result = array();
   for ($n = $start; $n < $start + $count; $n++) {
     $result[] = str_pad($n, $digits, "0", STR_PAD_LEFT);
@@ -265,7 +294,8 @@ function generate_numbers($start, $count, $digits){
   return $result;
 }
 /* TODO: Capturar el nombre de día */
-function get_nombre_dia($fecha){
+function get_nombre_dia($fecha)
+{
   $fechats = strtotime($fecha); //pasamos a timestamp
 
   //lo devuelve en numero 0 domingo, 1 lunes,....
@@ -294,7 +324,8 @@ function get_nombre_dia($fecha){
   }
 }
 /* TODO: Buscar valor en un array */
-function verificar($valor, $datos = []){
+function verificar($valor, $datos = [])
+{
   $existe = array_search($valor, $datos, true);
   return is_numeric($existe);
 }

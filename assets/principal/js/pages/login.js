@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (resp.tipo == 'success') {
                             frm.reset();
                             /*TODO: Mandar a otra ruta*/
+                            window.location = base_url + 'dashboard';
                         }
                     }
                 };
